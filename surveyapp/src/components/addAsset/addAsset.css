@@ -1,0 +1,82 @@
+.assets1{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: normal;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+  }
+
+.assets2, .assets3{
+    width: 100%;
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+}
+.assets3{
+    text-align: center;
+}
+  .assetInput{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    width: 90%;
+  }
+  
+  .assetInput2:focus{
+    outline: none;
+  }
+  
+  .assetItem{
+    width: 100%;
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+  }
+  
+  .assetItem1{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+  
+    width: 100%;
+  }
+  
+  .assetItem1:hover{
+    background: rgb(242, 242, 242);
+    cursor: pointer;
+  }
+  
+  .assetItem2, .assetItem3{
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+  }
+  
+  .assetItem2{
+    margin-left: 10px;
+  }
+  .assetItem3{
+    margin-right: 10px;
+  }
+  
+  .assetItem3:hover{
+    color: red;
+    cursor: pointer;
+  }
