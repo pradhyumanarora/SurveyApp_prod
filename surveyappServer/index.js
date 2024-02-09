@@ -24,8 +24,9 @@ app.post('/data', (req, res) => {
     const pythonProcess = spawn('python', ["testing.py", JSON.stringify(req.body)]);
     pythonProcess.stdout.on('data', (data) => {
         console.log(data.toString());
-        res.send({message: data.toString()})
+        res.send({message: data})
     });
+    res.send({message: 'Data Received'});
 });
 
 
