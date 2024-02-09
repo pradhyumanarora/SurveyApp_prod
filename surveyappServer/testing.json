@@ -1,0 +1,38 @@
+{
+    "targetImage": {
+        "fieldName": "targetImage",
+        "originalFilename": "query.jpg",
+        "path": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\UArPNpeExEvgwC5l7V3qmPK-.jpg",
+        "headers": {
+            "content-disposition": "form-data; name=\"targetImage\"; filename=\"query.jpg\"",
+            "content-type": "image/jpeg"
+        },
+        "size": 75018,
+        "name": "query.jpg",
+        "type": "image/jpeg"
+    },
+    "inputFiles1": {
+        "fieldName": "inputFiles1",
+        "originalFilename": "target.jpg",
+        "path": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\babT6BmdE524hGQGo7X7hr69.jpg",
+        "headers": {
+            "content-disposition": "form-data; name=\"inputFiles1\"; filename=\"target.jpg\"",
+            "content-type": "image/jpeg"
+        },
+        "size": 10352,
+        "name": "target.jpg",
+        "type": "image/jpeg"
+    },
+    "inputFiles2": {
+        "fieldName": "inputFiles2",
+        "originalFilename": "target2.jpg",
+        "path": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\lmdmsQ0Kyp3XP0zXRMh9N8_P.jpg",
+        "headers": {
+            "content-disposition": "form-data; name=\"inputFiles2\"; filename=\"target2.jpg\"",
+            "content-type": "image/jpeg"
+        },
+        "size": 9140,
+        "name": "target2.jpg",
+        "type": "image/jpeg"
+    }
+}
