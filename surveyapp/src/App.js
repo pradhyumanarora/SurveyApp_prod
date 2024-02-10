@@ -140,7 +140,7 @@ function App() {
                         <input type='text' className='assetInput2' value={inputValue} onChange={e=>setInputValue(e.target.value)} />
                     </div>
                     <div className='assetAddBtn'>
-                        <button onClick={handleAssetClick}>Add</button>
+                        <button onClick={addAssetOnClick}>Add</button>
                     </div>
                 </div>
             {/* </div> */}
