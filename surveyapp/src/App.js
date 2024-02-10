@@ -9,12 +9,14 @@ import axios from "axios";
 import './components/addAsset/addAsset.css';
 
 
-// let divKey = 1;
+let divKey = 1;
 function App() {
   const [inputValue, setInputValue] = useState("");
   const [inputType, toggleInputType] = useState('');
   const [file, setFile] = useState(null);
   const [inputFiles, setInputFiles] = useState([])
+  const [divs1, setDivs1] = useState([]);
+  const [selectedAsset, setSelectedAsset] = useState('target');
   // return (
   //   <>
   //     <div className="App">
@@ -26,34 +28,33 @@ function App() {
   //   </>
   // );
 
-  // const [divs1, setDivs1] = useState([]);
-  // const [selectedAsset, setSelectedAsset] = useState('');
-//   const addAssetOnClick = () => {
-//     let assetValue = inputValue;
-//     if(/^\s*$/i.test(assetValue)){
-//         setInputValue("");
-//         return;
-//     }
-//     const handleAssetClick = e =>{
-//         console.log('key:',e.currentTarget.getAttribute('data-assetkey'));
-//         setSelectedAsset(e.currentTarget.getAttribute('data-assetkey'));
-//         console.log('usestate:',selectedAsset);
-//     }
-//     setDivs1([...divs1, {divId:divKey,
-//         content:(
-//         <div className='assetItem' data-assetkey={divKey} onClick={handleAssetClick}>
-//             <div className='assetItem1'>
-//                 <div className='assetItem2' >{assetValue}</div>
-//                 <div className='assetItem3'>x</div>
-//             </div>
-//         </div>
-//     ),
-//     imageUpload:(
-//         <div data-imagekey={divKey} style={{display:selectedAsset===`${divKey}`?'block':'none'}}>{selectedAsset} {divKey}</div>
-//     )}]);
-//     setInputValue("");
-//     divKey++;
-// }
+
+  const addAssetOnClick = () => {
+    let assetValue = inputValue;
+    if(/^\s*$/i.test(assetValue)){
+        setInputValue("");
+        return;
+    }
+    const handleAssetClick = e =>{
+        console.log('key:',e.currentTarget.getAttribute('data-assetkey'));
+        setSelectedAsset(e.currentTarget.getAttribute('data-assetkey'));
+        console.log('usestate:',selectedAsset);
+    }
+    setDivs1([...divs1, {divId:divKey,
+        content:(
+        <div className='assetItem' data-assetkey={divKey} onClick={handleAssetClick}>
+            <div className='assetItem1'>
+                <div className='assetItem2' >{assetValue}</div>
+                <div className='assetItem3'>x</div>
+            </div>
+        </div>
+    ),
+    imageUpload:(
+        <div data-imagekey={divKey} style={{display:selectedAsset===`${divKey}`?'block':'none'}}>{selectedAsset} {divKey}</div>
+    )}]);
+    setInputValue("");
+    divKey++;
+}
   // const [divKey,setDivKey] = useState(0);
   // const [imagesDiv, setImagesDiv] = useState([]);
   const handleInputType = (val) => {
@@ -139,11 +140,11 @@ function App() {
                         <input type='text' className='assetInput2' value={inputValue} onChange={e=>setInputValue(e.target.value)} />
                     </div>
                     <div className='assetAddBtn'>
-                        <button onClick={() => {}}>Add</button>
+                        <button onClick={handleAssetClick}>Add</button>
                     </div>
                 </div>
             {/* </div> */}
-            {/* {divs1.map(div => div.content)} */}
+            {divs1.map(div => div.content)}
         </div>
           {/*  */}
         </div>
