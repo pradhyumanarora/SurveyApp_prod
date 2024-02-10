@@ -72,17 +72,20 @@ function App() {
       if (!file) {
         alert('No file found');
       } else {
-        console.log(file);
-        console.log(inputFiles);
+        // console.log(file);
+        // console.log(inputFiles);
         const formData = new FormData();
-        formData.append("file", file);
-        formData.append("inputFile", inputFiles);
+        formData.append("targetImage", file);
+        // formData.append("assetImage", inputFiles);
+        inputFiles.forEach((image, index) => {
+          formData.append(`inputFiles${index + 1}`, image);
+        });
         for (let [key, value] of formData.entries()) { 
           console.log(key, value);
         }
         
         try {
-          const response = await fetch("http://127.0.0.1:8080/data", {
+          const response = await fetch("http://127.0.0.1:8080/upload", {
             method: "POST",
             body: formData,
           });
@@ -113,13 +116,13 @@ function App() {
   }
 
 
-  if (isMobile) {
-    return (
-      <div className='containerMobile'>
+  // if (isMobile) {
+  //   return (
+  //     <div className='containerMobile'>
 
-      </div>
-    );
-  }
+  //     </div>
+  //   );
+  // }
   return (
     <>
       <div className='containerPC1'>
