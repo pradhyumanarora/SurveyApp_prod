@@ -4,9 +4,11 @@ import { isMobile } from 'react-device-detect';
 import RecordView from './components/RecordView';
 import GeoLocation from './components/GeoLocation';
 // import AddAsset from './components/addAsset/addAsset';
-import AddImages from './components/addImages/AddImages';
+// import AddImages from './components/addImages/AddImages';
 import axios from "axios";
-import './components/addAsset/addAsset.css';
+// import './components/addAsset/addAsset.css';
+// import AddImages2 from './components/addImages2/addImages2';
+import AssetForm from './components/AssetForm/AssetForm';
 
 
 let divKey = 1;
@@ -17,6 +19,7 @@ function App() {
   const [inputFiles, setInputFiles] = useState([])
   const [divs1, setDivs1] = useState([]);
   const [selectedAsset, setSelectedAsset] = useState('target');
+  const [assets, setAssets] = useState([]);
   // return (
   //   <>
   //     <div className="App">
@@ -31,30 +34,32 @@ function App() {
 
   const addAssetOnClick = () => {
     let assetValue = inputValue;
-    if(/^\s*$/i.test(assetValue)){
-        setInputValue("");
-        return;
+    if (/^\s*$/i.test(assetValue)) {
+      setInputValue("");
+      return;
     }
-    const handleAssetClick = e =>{
-        console.log('key:',e.currentTarget.getAttribute('data-assetkey'));
-        setSelectedAsset(e.currentTarget.getAttribute('data-assetkey'));
-        console.log('usestate:',selectedAsset);
+    const handleAssetClick = e => {
+      console.log('key:', e.currentTarget.getAttribute('data-assetkey'));
+      setSelectedAsset(e.currentTarget.getAttribute('data-assetkey'));
+      console.log('usestate:', selectedAsset);
     }
-    setDivs1([...divs1, {divId:divKey,
-        content:(
+    setDivs1([...divs1, {
+      divId: divKey,
+      content: (
         <div className='assetItem' data-assetkey={divKey} onClick={handleAssetClick}>
-            <div className='assetItem1'>
-                <div className='assetItem2' >{assetValue}</div>
-                <div className='assetItem3'>x</div>
-            </div>
+          <div className='assetItem1'>
+            <div className='assetItem2' >{assetValue}</div>
+            <div className='assetItem3'>x</div>
+          </div>
         </div>
-    ),
-    imageUpload:(
-        <div data-imagekey={divKey} style={{display:selectedAsset===`${divKey}`?'block':'none'}}>{selectedAsset} {divKey}</div>
-    )}]);
+      ),
+      imageUpload: (
+        <div data-imagekey={divKey} style={{ display: selectedAsset === `${divKey}` ? 'block' : 'none' }}>{selectedAsset} {divKey}</div>
+      )
+    }]);
     setInputValue("");
     divKey++;
-}
+  }
   // const [divKey,setDivKey] = useState(0);
   // const [imagesDiv, setImagesDiv] = useState([]);
   const handleInputType = (val) => {
@@ -69,50 +74,54 @@ function App() {
 
 
   const sendData = async (model) => {
-    if (inputType == 'upload') {
-      if (!file) {
-        alert('No file found');
-      } else {
-        // console.log(file);
-        // console.log(inputFiles);
-        const formData = new FormData();
-        formData.append("targetImage", file);
-        // formData.append("assetImage", inputFiles);
-        inputFiles.forEach((image, index) => {
-          formData.append(`inputFiles${index + 1}`, image);
-        });
-        for (let [key, value] of formData.entries()) { 
-          console.log(key, value);
-        }
-        
-        try {
-          const response = await fetch("https://surveyapp-pnq3.onrender.com/data", {
-            method: "POST",
-            body: formData,
-          });
-    
-          const data = await response.json();
-          
-        } catch (error) {
-          console.error("Error:", error);
-        }
-        // axios({
-        //   method: 'post',
-        //   url: 'http://localhost:8080/data',
-        // // headers: {
-        // //   'Content-Type': 'multipart/form-data'
-        // // },
-        //   data: {
-        //     modelName:model,
-        //     file:formData,
-        //     inputType: inputType
-        //   }
-        // });
-        // axios.post('http://localhost:8080/data', data1);
-      }
-    } else if (inputType == 'record') {
-      alert('In Progress...');
+    const url = "https://surveyapp-pnq3.onrender.com/data";
+    // const url = "http://localhost:8080/data";
+    const formData = new FormData();
+    assets.forEach((asset, index) => {
+      formData.append(`assets[${index}].name`, asset.name);
+      formData.append(`assets[${index}].image`, asset.image);
+    });
+    // formData.append("targetImage", file);
+    // inputFiles.forEach((image, index) => {
+    //   formData.append(`inputFiles${index + 1}`, image);
+    // });
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
+
+    try {
+      // const response = await fetch(url, {
+      //   method: "POST",
+      //   body: {message:'hello'}
+      // });
+      // console.log('sent');
+      // const data = await response.json();
+      // console.log(response.message);
+      const response = await axios.post(url, {modelName:model,
+        assets:formData}, {
+        // headers: {
+        //   'Content-Type': 'multipart/form-data',
+        // },
+      });
+      console.log('Response:', response.data);
+
+    } catch (error) {
+      console.error("Error:", error);
     }
+    // axios({
+    //   method: 'post',
+    //   url: 'http://localhost:8080/data',
+    // // headers: {
+    // //   'Content-Type': 'multipart/form-data'
+    // // },
+    //   data: {
+    //     modelName:model,
+    //     file:formData,
+    //     inputType: inputType
+    //   }
+    // });
+    // axios.post('http://localhost:8080/data', data1);
+
 
   }
 
@@ -127,41 +136,51 @@ function App() {
   return (
     <>
       <div className='containerPC1'>
-        <div className='assets'>
-          {/* <AddAsset divs1={divs1} setDivs1={setDivs1} selectedAsset={selectedAsset} setSelectedAsset={setSelectedAsset} /> */}
-          {/*  */}
-          <div className='assets1' >
+
+        {/* <div className='assets'> */}
+        {/* <AddAsset divs1={divs1} setDivs1={setDivs1} selectedAsset={selectedAsset} setSelectedAsset={setSelectedAsset} /> */}
+        {/* <div className='assets1' >
             <div className='assets3'>
-                <button className="giveTargetBtn" onClick={()=>{}}>Give Target Input</button>
-            </div>
-            {/* <div className='assets2'> */}
-                <div className='assetInput'>
-                    <div className='assetInput1'>
-                        <input type='text' className='assetInput2' value={inputValue} onChange={e=>setInputValue(e.target.value)} />
-                    </div>
-                    <div className='assetAddBtn'>
-                        <button onClick={addAssetOnClick}>Add</button>
-                    </div>
-                </div>
-            {/* </div> */}
-            {divs1.map(div => div.content)}
-        </div>
-          {/*  */}
-        </div>
+              <button className="giveTargetBtn" onClick={() => { }}>Give Target Input</button>
+            </div> */}
+        {/* <div className='assets2'> */}
+        {/* <div className='assetInput'>
+              <div className='assetInput1'>
+                <input type='text' className='assetInput2' value={inputValue} onChange={e => setInputValue(e.target.value)} />
+              </div>
+              <div className='assetAddBtn'>
+                <button onClick={addAssetOnClick}>Add</button>
+              </div>
+            </div> */}
+        {/* </div> */}
+        {/* {divs1.map(div => div.content)} */}
+        {/* </div>
+        </div> */}
+
         <div className='userInteraction'>
           <div className='containerPC'>
             <div className='item1PC'>
               <div className='inputs'>
+                <div className='addAsset'>
+                  <button className='Btn' onClick={() => handleInputType('addAsset')}>Add Asset</button>
+                </div>
                 <div className='uploadFile'>
-                  <button onClick={() => handleInputType('upload')}>Upload File</button>
+                  <button className='Btn' onClick={() => handleInputType('upload')}>Upload File</button>
                 </div>
                 <div className='recordVideo'>
-                  <button onClick={() => handleInputType('record')}>Record Video</button>
+                  <button className='Btn' onClick={() => handleInputType('record')}>Record Video</button>
                 </div>
               </div>
             </div>
             <div className='item2PC'>
               <div className='item2PC2' >
+
+                <div className='assetsUploadOption' style={inputType == 'addAsset' ? {} : { display: 'none' }}>
+                  {/* <AddImages2 inputFiles={inputFiles} setInputFiles={setInputFiles}/> */}
+                  {/* <div>Number of Files Received: {inputFiles.length}</div> */}
+                  <AssetForm assets={assets} setAssets={setAssets} />
+                </div>
+
                 <div className='inputFile' style={inputType == 'upload' ? {} : { display: 'none' }}>
                   <input type='file' onChange={handleUpload} />
                 </div>
@@ -177,15 +196,15 @@ function App() {
             <div className='item3PC'>
               <div className='trainBtns' style={inputType ? {} : { display: 'none' }}>
                 <div className='detectron'>
-                  <button onClick={() => sendData('detectron')}>Detect with Detectron</button>
+                  <button className='Btn' onClick={() => sendData('detectron')}>Detect with Detectron</button>
                 </div>
                 <div className='GenAI'>
-                  <button onClick={() => sendData('GenAI')}>Detect with GenAI</button>
+                  <button className='Btn' onClick={() => sendData('GenAI')}>Detect with GenAI</button>
                 </div>
               </div>
             </div>
           </div>
-          <AddImages inputFiles={inputFiles} setInputFiles={setInputFiles}/>
+          {/* <AddImages inputFiles={inputFiles} setInputFiles={setInputFiles} /> */}
           {/* {divs1.map(div=>div.imageUpload)} */}
         </div>
       </div>
@@ -250,16 +269,16 @@ export default App;
 //   const [inputValue, setInputValue] = useState("");
 
 
-  // return (
-  //   <>
-  //     <div className="App">
-  //       Hello World
-  //     </div><h1>React Media Recorder App</h1>
-  //     <RecordView />
-  //     <GeoLocation />
-  //     <Demo />
-  //   </>
-  // );
+// return (
+//   <>
+//     <div className="App">
+//       Hello World
+//     </div><h1>React Media Recorder App</h1>
+//     <RecordView />
+//     <GeoLocation />
+//     <Demo />
+//   </>
+// );
 //   const [inputType, toggleInputType] = useState('');
 //   const [file, setFile] = useState(null);
 //   const [divs1, setDivs1] = useState([]);

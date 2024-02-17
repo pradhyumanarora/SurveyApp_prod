@@ -19,13 +19,14 @@ app.get('/', (req, res) => {
 
 
 app.post('/data', (req, res) => {
-    console.log(req.body)
-    const spawn = require("child_process").spawn;
-    const pythonProcess = spawn('python', ["testing.py", JSON.stringify(req.body)]);
-    pythonProcess.stdout.on('data', (data) => {
-        console.log(data.toString());
-        res.send({message: data})
-    });
+    console.log(req.body);
+
+    // const spawn = require("child_process").spawn;
+    // const pythonProcess = spawn('python', ["testing.py", JSON.stringify(req.body)]);
+    // pythonProcess.stdout.on('data', (data) => {
+    //     console.log(data.toString());
+    //     res.send({message: data})
+    // });
     res.send({message: 'Data Received'});
 });
 

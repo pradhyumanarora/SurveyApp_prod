@@ -1,0 +1,31 @@
+.uploadArea{
+    height: 100px;
+    width: 100%;
+    border: dotted;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: rgb(189, 189, 189);
+    margin-top: 10px;
+    
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.uploadImg{
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+}
+
+.uploadIcon{
+    width: 40px;
+    height: 40px;
+    color: rgb(189, 189, 189);
+}
