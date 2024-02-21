@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, send_from_directory
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import os
 import numpy as np
 from owl_vit_detect import object_detection
@@ -19,6 +19,7 @@ def index():
     return "Welcome to the Object Detection API!"
 
 @app.route('/upload', methods=['POST'])
+@cross_origin(origin='*')
 def upload_files():
     print("Hello")
     try:

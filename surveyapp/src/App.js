@@ -67,7 +67,7 @@ function App() {
 
   const sendData = async (model) => {
     // const url = "https://surveyapp-pnq3.onrender.com/data";
-    const url = "http://localhost:8080/upload";
+    // const url = "http://localhost:8080/upload";
     const formData = new FormData();
     formData.append("targetImage", file);
     assets.forEach((asset, index) => {
@@ -78,7 +78,7 @@ function App() {
 
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/upload", {
+      const response = await fetch("https://surveyapp-prod-flask.onrender.com/upload", {
         method: "POST",
         body: formData,
       });
@@ -91,6 +91,7 @@ function App() {
 
       // Assuming the backend returns the base64-encoded image in 'image' field
       setResultImage(data.image);
+      console.log("Image Updated");
     } catch (error) {
       console.error("Error:", error);
     } 
