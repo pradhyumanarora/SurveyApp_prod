@@ -25,7 +25,7 @@ const AssetForm = props => {
 
   const handleImageUpload = (e, index) => {
     const newAssets = [...props.assets];
-    newAssets[index].image = URL.createObjectURL(e.target.files[0]);
+    newAssets[index].image = e.target.files[0];
     props.setAssets(newAssets);
   };
 
