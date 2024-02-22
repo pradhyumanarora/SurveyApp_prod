@@ -68,40 +68,40 @@ function App() {
   const sendData = async (model) => {
     // const url = "https://surveyapp-pnq3.onrender.com/data";
     const url = "http://127.0.0.1:5000/upload";
-    if (assets) {
-      const formData = new FormData();
-      // formData.append('modelName','genAI');
-      assets.forEach((asset, index) => {
-        formData.append(`assets[${index}].name`, asset.name);
-        formData.append(`assets[${index}].image`, asset.image);
+    if (file) {
+    const formData = new FormData();
+    formData.append("targetImage", file);
+    assets.forEach((asset, index) => {
+      // formData.append(`assets${index + 1}.name`, asset.name);
+      console.log(asset);
+      formData.append(`assetsImg${index + 1}`, asset.image);
+    });
+    try {
+      const response = await fetch("http://127.0.0.1:8000/upload", {
+        method: "POST",
+        body: formData,
       });
-      try {
-        const response = await fetch("http://127.0.0.1:8000/upload", {
-          method: "POST",
-          body: formData,
-        });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        // setResultImage(data.image);
-      } catch (error) {
-        console.error("Error:", error);
-      } finally {
-        // setLoading(false);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
+
+      const data = await response.json();
+
+      setResultImage(data.image);
+      console.log("Image Updated");
+    } catch (error) {
+      console.error("Error:", error);
     }
-    else if(recordedBlob){
+    }
+    else if (recordedBlob) {
       const targetFile = new File([recordedBlob], "target.mp4", { type: 'video/mp4' });
       const formDataVid = new FormData();
       formDataVid.append('target', targetFile);
       try {
         const response = await fetch("http://127.0.0.1:8000/upload", {
           method: "POST",
-          body: formData,
+          body: formDataVid,
         });
 
         if (!response.ok) {
@@ -149,7 +149,7 @@ function App() {
 
                 <div className='videoRecorder' style={inputType == 'record' ? {} : { display: 'none' }}>
                   <div className='videoRecorder2'>
-                    <RecordView recordedBlob={recordedBlob} setRecordedBlob={setRecordedBlob}/>
+                    <RecordView recordedBlob={recordedBlob} setRecordedBlob={setRecordedBlob} />
                     <GeoLocation />
                   </div>
                 </div>
