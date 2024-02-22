@@ -5,9 +5,9 @@ import { useStopwatch } from 'react-timer-hook';
 import { useGeolocated } from "react-geolocated";
 
 
-const RecordView = () => {
+const RecordView = props => {
 
-  const [recordedBlob, setRecordedBlob] = useState(null);
+  // const [recordedBlob, setRecordedBlob] = useState(null);
   const [facingMode, setFacingMode] = useState('environment');
   const [deviceId, setDeviceId] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
@@ -78,10 +78,10 @@ const RecordView = () => {
         render={({ status, startRecording, stopRecording, mediaBlobUrl, previewStream }) => (
           <div>
             <p>{status}</p>
-            {status === 'stopped' && recordedBlob && (
+            {status === 'stopped' && props.recordedBlob && (
               <div>
                 <p>Recorded Video:</p>
-                <video src={recordedBlob} width={500} height={500} controls />
+                <video src={props.recordedBlob} width={300} height={300} controls />
               </div>
             )}
             {status !== 'stopped' && (
@@ -98,18 +98,18 @@ const RecordView = () => {
                     </div>
                   )}
                   {status === 'recording' && (
-                    <button onClick={() => { stopRecording(); setRecordedBlob(mediaBlobUrl); onStop(); }}>Stop Recording</button>
+                    <button onClick={() => { stopRecording(); props.setRecordedBlob(mediaBlobUrl); onStop(); }}>Stop Recording</button>
                   )}
                 </div>
                 <VideoPreview stream={previewStream} />
               </div>
             )}
-            {status === 'stopped' && !recordedBlob && (
+            {status === 'stopped' && !props.recordedBlob && (
               <p>No recorded video available</p>
             )}
           </div>
         )}
-        onStop={(blobUrl) => setRecordedBlob(blobUrl)}
+        onStop={(blobUrl) => props.setRecordedBlob(blobUrl)}
         onGranted={({ video }) => setDeviceId(video.deviceId)}
       />
       {/* {!isRecording && coordinatesArray.length>0 && (

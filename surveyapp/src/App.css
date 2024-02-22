@@ -131,6 +131,10 @@
   margin-right: 5px;
 }
 
-.containerMobile{
+.videoRecorder{
+  width: 150%;
+}
 
+.videoRecorder2{
+  width: 100%;
 }
