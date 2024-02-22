@@ -22,6 +22,7 @@ function App() {
   const [selectedAsset, setSelectedAsset] = useState('target');
   const [assets, setAssets] = useState([]);
   const [recordedBlob, setRecordedBlob] = useState(null);
+  const [resultImage, setResultImage] = useState(null);
 
   const addAssetOnClick = () => {
     let assetValue = inputValue;
@@ -167,12 +168,16 @@ function App() {
           </div>
         </div>
       </div>
-
+      {resultImage && (
+        <div className="mt-4">
+          <h2>Result Image</h2>
+          <img src={resultImage} alt="Result" className="img-fluid" />
+        </div>
+      )}
     </>
 
   );
 
 }
-
 
 export default App;

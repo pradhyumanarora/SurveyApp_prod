@@ -30,6 +30,7 @@ const AssetForm = props => {
 
   const handleImageUpload = (e, id) => {
     const newAssets = [...props.assets];
+
     let index = newAssets.findIndex(asset=>{
       return asset.id==id;
     })
