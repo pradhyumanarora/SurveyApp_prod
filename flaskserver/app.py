@@ -9,7 +9,7 @@ import shutil
 
     
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app, resources={r"/*": {"origins": "*"}})  # Enable CORS for all routes
 
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -58,7 +58,6 @@ def upload_files():
         shutil.rmtree("uploads")
 
         response = jsonify({'image':"data:image/jpeg;base64," + img_base64})
-        # response.headers.add('Access-Control-Allow-Origin', '*')
         return response
         # return jsonify({'status': 'No Error'}),200
 
