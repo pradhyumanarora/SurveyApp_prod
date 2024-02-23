@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/SurveyApp_prod/static/css/main.143bd70b.css",
-    "main.js": "/SurveyApp_prod/static/js/main.7fe4ebbd.js",
+    "main.css": "/SurveyApp_prod/static/css/main.7ca3ae0d.css",
+    "main.js": "/SurveyApp_prod/static/js/main.61bec869.js",
     "static/js/787.1a0979bb.chunk.js": "/SurveyApp_prod/static/js/787.1a0979bb.chunk.js",
     "index.html": "/SurveyApp_prod/index.html",
-    "main.143bd70b.css.map": "/SurveyApp_prod/static/css/main.143bd70b.css.map",
-    "main.7fe4ebbd.js.map": "/SurveyApp_prod/static/js/main.7fe4ebbd.js.map",
+    "main.7ca3ae0d.css.map": "/SurveyApp_prod/static/css/main.7ca3ae0d.css.map",
+    "main.61bec869.js.map": "/SurveyApp_prod/static/js/main.61bec869.js.map",
     "787.1a0979bb.chunk.js.map": "/SurveyApp_prod/static/js/787.1a0979bb.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.143bd70b.css",
-    "static/js/main.7fe4ebbd.js"
+    "static/css/main.7ca3ae0d.css",
+    "static/js/main.61bec869.js"
   ]
 }
