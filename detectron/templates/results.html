@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Your HTML head content -->
+  </head>
+  <body>
+    <h1>Image Processing Result</h1>
+    <img
+      src="{{ url_for('static', filename='Images/abc.png') }}"
+      class="image"
+    />
+
+    <h2>Bounding Box Information</h2>
+    <ul>
+      {% for box_info in bounding_box_info %}
+      <li>
+        <strong>Box Coordinates:</strong> {{ box_info["coordinates"] }}<br />
+        <strong>Label:</strong> {{ box_info["label"] }}<br />
+        <strong>Confidence:</strong> {{ box_info["confidence"] }}
+      </li>
+      <br />
+      {% endfor %}
+    </ul>
+  </body>
+</html>

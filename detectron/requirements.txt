@@ -1,0 +1,8 @@
+Flask
+opencv-python
+requests
+matplotlib
+Pillow
+torch
+numpy
+roboflow
