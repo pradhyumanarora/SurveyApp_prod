@@ -1,6 +1,4 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Frontend Survey App
 
 ## Available Scripts
 
@@ -29,42 +27,82 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Step-By-Step Guide
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. First initialize the node packages:
+    ```shell
+    run npm i
+    ```
+    
+2. To start React server run:
+    ```shell
+    npm start
+    ```
+    
+3. Click on 'Add Assets' button to add asset image and asset names. Asset details are stored as follows:
+    ```javascript
+    [
+        {id: string, name: string, image: file},
+        {id: string, name: string, image: file},
+        {id: string, name: string, image: file},
+    ]
+    ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. Click on 'Upload File' button to upload target image
 
-## Learn More
+5. 'Record Video' button is used to record video and get geolocation in real-time. The module uses ReactMediaRecorder for recording video and useGeolocated libraries for recording and detecting geolcation simultaneously.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    ReactMediaRecorder can be imported like this:
+    ```javascript
+    import { ReactMediaRecorder } from 'react-media-recorder'
+    ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    For importing useGeolocated use the following command:
+    ```javascript
+    import { useGeolocated } from "react-geolocated"
+    ```
 
-### Code Splitting
+6. When the recording begins, the camera preview is not visible by default. That can be done importing the following component:
+    ```javascript
+    import VideoPreview from './VideoPreview'
+    ```
+    It ensures that camera preview is enabled while recording.
+    
+    The following function takes care of the camera preview during recording:
+    ```javascript
+    const VideoPreview = ({ stream }) => {
+      const videoRef = useRef(null);
+    
+      useEffect(() => {
+        if (videoRef.current && stream) {
+          videoRef.current.srcObject = stream;
+        }
+      }, [stream]);
+    
+      if (!stream) {
+        return null;
+      }
+    
+      return <video ref={videoRef} width={<width>} height={<height>} autoPlay controls />;
+    };
+    ```
+    You can adjust the dimensions of the camera preview by adjusting the height and widht parameters.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+7. To toggle the front and back camera, create a button and call the below given function when the button is pressed:
+    ```javascript
+    const toggleCamera = () => {
+        setFacingMode((prevFacingMode) =>
+          prevFacingMode === 'environment' ? 'user' : 'environment'
+        );
+        setDeviceId(null);
+      };
+    ```
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**Detecting Objects:**
+Below the input fields, 2 buttons are there, 'Detect with detectron' and 'Detect with OWLViT'. The buttons call the function ```sendData()```. ```sendData()``` accepts 1 parameter: 'model' which is the name of the model, **'Detectron'** or **'OWL-ViT'**.
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If the target image is provided, then target image is added to FormData object and then assets are appended to FormData object.
+Else if recorded video is provided then recordedBlob is converted to mp4 format and stored in 'targetFile' variable. Then 'targetFile' and assets are appended to FormData object.
